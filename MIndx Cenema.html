@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký giống</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #2b2b2b;
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Hình nền (nếu bạn muốn làm background) */
+        .bg-img {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+
+        .container {
+            background: #3c3c3c;
+            padding: 25px;
+            width: 350px;
+            border: 3px solid #000;
+            box-shadow: 0 0 10px #000;
+            height: fit-content;
+        }
+
+        h2 { text-align: center; margin-bottom: 15px; }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            outline: none;
+        }
+
+        input { background: #555; color: white; }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover { background: #45a049; }
+
+        #message { margin-top: 10px; font-weight: bold; text-align: center; }
+
+        /* --- PHẦN QUAN TRỌNG: FIXED CHATBOT --- */
+        
+        .bot {
+            position: fixed;   /* Cố định vị trí */
+            bottom: 20px;      /* Cách đáy 20px */
+            right: 20px;       /* Cách phải 20px */
+            width: auto;       /* Không chiếm 10% như cũ để tránh đẩy nội dung */
+            z-index: 1000;
+        }
+
+        .bot button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%; /* Làm nút tròn cho giống chatbot chuyên nghiệp */
+            padding: 0;
+        }
+
+        #hello {
+            position: fixed;   /* Nổi lên trên, không đẩy form */
+            bottom: 90px;      /* Nằm trên nút bấm */
+            right: 20px;
+            width: 350px;      /* Giới hạn chiều rộng khung chat */
+            height: 500px;     /* Giới hạn chiều cao khung chat */
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;     /* Mặc định ẩn */
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2021/07/minecraft-game-nguoi-lon-3.jpg" alt="" class="bg-img">
+
+    <div class="container">
+        <h2>Tạo tài khoản</h2>
+        <form id="registerForm">
+            <label>Email:</label>
+            <input type="email" id="email" required>
+
+            <label>Mật khẩu:</label>
+            <input type="password" id="password" required> <label>Xác nhận mật khẩu:</label>
+            <input type="password" id="confirm" required>
+
+            <label style="font-size: 14px;">
+                <input type="checkbox" id="tos" required style="width: auto;">
+                Tôi đồng ý với điều khoản sử dụng
+            </label>
+
+            <button type="submit">Tạo tài khoản</button>
+            
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <iframe id="hello" src="https://www.chatbase.co/chatbot-iframe/NuGfGE5Mcf-8eR10DMnKN" frameborder="0"></iframe>
+
+    <div class="bot">
+        <button onclick="openChatbot()">Chat</button>
+    </div>
+
+    <script>
+        // Xử lý Form
+        document.getElementById("registerForm").addEventListener("submit", function(e){
+            e.preventDefault();
+            let pass = document.getElementById("password").value;
+            let confirm = document.getElementById("confirm").value;
+
+            if(pass !== confirm){
+                document.getElementById("message").innerText = "❌ Mật khẩu không khớp!";
+                document.getElementById("message").style.color = "red";
+                return;
+            }
+            document.getElementById("message").innerText = "✔ Tạo tài khoản thành công!";
+            document.getElementById("message").style.color = "#4CAF50";
+            document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    if(pass === confirm) {
+        document.getElementById("message").innerText = "✔ Tạo tài khoản thành công!";
+        document.getElementById("message").style.color = "#4CAF50";
+        this.reset(); 
+    }
+});
+        });
+
+        // Xử lý Chatbot
+        let flagChatbot = false;
+        function openChatbot() {
+            let chatbot = document.getElementById("hello");
+            if (!flagChatbot) {
+                chatbot.style.display = "block";
+                flagChatbot = true;
+            } else {
+                chatbot.style.display = "none";
+                flagChatbot = false;
+            }
+        }
+    </script>
+</body>
+</html>
